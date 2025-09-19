@@ -2,7 +2,7 @@
 This will configure basic things such as username, password and basic commands to know
 
 ## Setting a new hostname
-Whenever you set up a new VyOS router you will want a new username as "vyos" is very easy to guess. You also want to have a strong password that is randomly generated
+When you set up a new router the hostname will be vyos, this is ugly and you have no clue what it does. Change it to something descriptive.
 
 1. Type `configure`, you can also use `conf`. 
 
