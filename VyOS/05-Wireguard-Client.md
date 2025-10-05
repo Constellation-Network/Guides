@@ -23,26 +23,20 @@ We need a wireguard interface on vyos for the client to connect. The interface w
 ## Open Firewall Port
 A firewall rule is needed to allow udp traffic into the wireguard port.<br>
 <br>
-This example will use `WIREGUARD_IN` as the sub ruleset name and port `30000` for the inbound port. You do not have to use a sub ruleset.
+This example will use port `30000` for the inbound port. Use the port number you set earlier, and use available rule numbers on your router.
 
 ## Sub Ruleset
-1. Type `set firewall ipv4 name WIREGUARD_IN rule 10 action accept`
-2. Type `set firewall ipv4 name WIREGUARD_IN rule 10 description 'Allow established/related'`
-3. Type `set firewall ipv4 name WIREGUARD_IN rule 10 state established`
-4. Type `set firewall ipv4 name WIREGUARD_IN rule 10 state related`
-5. Type `set firewall ipv4 name WIREGUARD_IN rule 20 action accept`
-6. Type `set firewall ipv4 name WIREGUARD_IN rule 20 description 'WireGuard port'`
-7. Type `set firewall ipv4 name WIREGUARD_IN rule 20 destination port 30000`
-8. Type `set firewall ipv4 name WIREGUARD_IN rule 20 log`
-9. Type `set firewall ipv4 name WIREGUARD_IN rule 20 protocol 'udp'`
-10. Type `set firewall ipv4 name WIREGUARD_IN rule 20 source`
-11. Type `set firewall ipv4 name WIREGUARD_IN default-action return`
-
-## Jump Point
-A jump point is needed to make sure the sub ruleset is used.
-1. Type `set firewall ipv4 input filter rule 90 action jump`<br>
-Use an available rule number on your system
-2. Type `set firewall ipv4 input filter rule 90 jump-target WIREGUARD_IN`
+1. Type `set firewall ipv4 input filter rule 10 action accept`
+2. Type `set firewall ipv4 input filter rule 10 description 'Allow established/related'`
+3. Type `set firewall ipv4 input filter rule 10 state established`
+4. Type `set firewall ipv4 input filter rule 10 state related`
+5. Type `set firewall ipv4 input filter rule 20 action accept`
+6. Type `set firewall ipv4 input filter rule 20 description 'WireGuard port'`
+7. Type `set firewall ipv4 input filter rule 20 destination port 30000`
+8. Type `set firewall ipv4 input filter rule 20 log`
+9. Type `set firewall ipv4 input filter rule 20 protocol 'udp'`
+10. Type `set firewall ipv4 input filter rule 20 source`
+11. Type `set firewall ipv4 input filter default-action return`
 
 ## Create NAT
 A nat source rule is needed to allow the client to reach the network. A translation address is used as a middleman for the client. In this example we used 10.72.21.1, please use your routers ip address. Also change 10.15.21.0/30 to your wireguard subnet.
